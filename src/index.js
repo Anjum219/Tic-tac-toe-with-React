@@ -67,7 +67,10 @@ class Board extends React.Component {
 
     return (
       <div>
-        <div className="status" style={{whiteSpace: "pre-line"}}>
+        <div className = 'game-name'>
+          {'Tic-Tac-Toe\n\n'}
+        </div>
+        <div className="status">
           {status}
         </div>
         <div className="board-row">
