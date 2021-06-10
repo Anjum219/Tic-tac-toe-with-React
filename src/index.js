@@ -48,19 +48,28 @@ class Board extends React.Component {
   }
 
   render() {
-    let status;
-    const winner = calculateWinner(this.state.squares);
+    let status = '';
 
-    if(winner) {
-      status = 'Winner: ' + winner;
+    if(isGameOver(this.state.squares)) {
+      status += 'GAME OVER' + '\n';
+      const winner = calculateWinner(this.state.squares);
+
+      if(winner){
+        status += 'Winner: ' + winner + '\n' + 'Congratulations!';
+      }
+      else{
+        status += 'It\'s a draw!';
+      }
     }
     else {
-      status = 'Next player: ' + (this.state.xIsNext ? 'X' : '0');
+      status += 'Next player: ' + (this.state.xIsNext ? 'X' : '0');
     }
 
     return (
       <div>
-        <div className="status">{status}</div>
+        <div className="status" style={{whiteSpace: "pre-line"}}>
+          {status}
+        </div>
         <div className="board-row">
           {this.renderSquare(0)}
           {this.renderSquare(1)}
@@ -125,5 +134,21 @@ function calculateWinner(squares) {
   }
 
   return null;
+}
+
+function isGameOver(squares) {
+  if( calculateWinner(squares) )
+    return true;
+
+  let isOver = true;
+
+  for( let i = 0; i < squares.length; i++ ) {
+    if( !squares[i] ){
+      isOver = false;
+      break;
+    }
+  }
+
+  return isOver;
 }
   
